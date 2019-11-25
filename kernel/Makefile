@@ -43,6 +43,7 @@ KERNEL_OBJS=\
 	trap_asm.o \
 	vectors.o \
 	timer.o \
+	proc.o \
 	drivers/uart.o \
 	drivers/tty.o
 

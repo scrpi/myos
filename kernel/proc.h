@@ -1,6 +1,7 @@
 #ifndef __KERNEL_PROC_H_
 #define __KERNEL_PROC_H_
 
+#include <mm/mmu.h>
 #include <uthash.h>
 
 enum procstate {
@@ -16,6 +17,16 @@ struct proc {
 	enum procstate state;
 	int pid;
 
+	struct pd *pgdir;
+	phys_addr_t pgdir_phys;
+
+	phys_addr_t kstack_phys;
+
 	UT_hash_handle hh;
 };
 
+
+void proc_userinit();
+
+
+#endif
