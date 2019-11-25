@@ -12,4 +12,6 @@ void *memalign(size_t alignment, size_t size);
 __attribute__((__noreturn__))
 void abort(void);
 
+#define exit(n) panic("exit: %d\n", (n))
+
 #endif
