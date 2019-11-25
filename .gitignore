@@ -1,0 +1,6 @@
+/host/downloads
+/host/toolchain
+/sysroot
+/isodir
+*.iso
+.tags
