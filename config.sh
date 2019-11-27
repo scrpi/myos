@@ -1,9 +1,9 @@
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="kernel"
 
+export HOST="i686-elf"
 export PATH="$PATH:$(pwd)/host/toolchain/bin"
 export MAKE=${MAKE:-make}
-export HOST=${HOST:-$(./default-host.sh)}
 
 export AR=${HOST}-ar
 export AS=${HOST}-as
