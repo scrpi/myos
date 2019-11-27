@@ -46,7 +46,8 @@ KERNEL_OBJS=\
 	proc.o \
 	drivers/uart.o \
 	drivers/tty.o \
-	drivers/pci.o
+	drivers/pci.o \
+	drivers/ata.o
 
 #	$(ARCHDIR)/crti.o \
 #	$(ARCHDIR)/crtbegin.o \

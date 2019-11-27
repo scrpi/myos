@@ -1,6 +1,7 @@
 #include <drivers/pci.h>
 #include <kernel.h>
 #include <x86.h>
+#include <drivers/ata.h>
 
 LIST_HEAD(pci_device_list);
 LIST_HEAD(pci_driver_list);
@@ -155,6 +156,7 @@ void pci_init()
 	}
 
 	/* TODO: Replace with some kind of gcc constructor mechanism? */
+	ata_driver_init();
 
 	do_driver_probe();
 }
