@@ -54,6 +54,8 @@ static void probe_pci_function(uint8_t bus, uint8_t slot, uint8_t func)
 	if (!dev)
 		panic("OOM");
 
+	memset(dev, 0, sizeof(*dev));
+
 	dev->bus = bus;
 	dev->slot = slot;
 	dev->func = func;
@@ -129,9 +131,11 @@ static void do_driver_probe()
 				if (dev->sub_class != id->sub_class && id->sub_class != PCI_ANY_ID)
 					goto next_id;
 
-				if (0 == driver->probe(dev, id))
+				if (0 == driver->probe(dev, id)) {
 					/* Found driver */
+					dev->driver = driver;
 					break;
+				}
 next_id:
 				++id;
 			}

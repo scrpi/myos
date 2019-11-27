@@ -15,6 +15,8 @@
 #define PCI_HEADER_TYPE_CARDBUS    0x02
 #define PCI_HEADER_TYPE_MULTIFUNC  0x80
 
+struct pci_driver;
+
 struct pci_device {
 	struct list_head node;
 	uint8_t bus;
@@ -26,6 +28,8 @@ struct pci_device {
 
 	uint8_t base_class;
 	uint8_t sub_class;
+
+	struct pci_driver *driver;
 };
 
 #define PCI_ANY_ID ((uint32_t)-1)
