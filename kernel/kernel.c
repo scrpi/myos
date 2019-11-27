@@ -5,6 +5,7 @@
 #include <trap.h>
 #include <drivers/tty.h>
 #include <drivers/uart.h>
+#include <drivers/pci.h>
 #include <multiboot.h>
 
 uint32_t ticks;
@@ -56,6 +57,8 @@ void kernel_main(multiboot_info_t *mbt, uint32_t magic)
 	vmm_init(kend);
 	gdtinit();
 	trapinit();
+
+	pci_init();
 
 	while(1);
 }
