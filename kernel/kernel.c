@@ -60,5 +60,6 @@ void kernel_main(multiboot_info_t *mbt, uint32_t magic)
 
 	pci_init();
 
-	while(1);
+	while(1)
+		__asm__ volatile("hlt");
 }
