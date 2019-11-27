@@ -106,6 +106,39 @@ static void pci_scan()
 	}
 }
 
+static void do_driver_probe()
+{
+	const struct pci_device_id *id;
+	struct pci_device *dev;
+	struct pci_driver *driver;
+
+	list_for_each_entry(dev, &pci_device_list, node) {
+		list_for_each_entry(driver, &pci_driver_list, node) {
+			if (!driver->probe)
+				continue;
+
+			id = driver->id_table;
+
+			while (id->vendor != 0) {
+				if (dev->vendor != id->vendor && id->vendor != PCI_ANY_ID)
+					goto next_id;
+				if (dev->device != id->device && id->device != PCI_ANY_ID)
+					goto next_id;
+				if (dev->base_class != id->base_class && id->base_class != PCI_ANY_ID)
+					goto next_id;
+				if (dev->sub_class != id->sub_class && id->sub_class != PCI_ANY_ID)
+					goto next_id;
+
+				if (0 == driver->probe(dev, id))
+					/* Found driver */
+					break;
+next_id:
+				++id;
+			}
+		}
+	}
+}
+
 void pci_init()
 {
 	struct pci_device *dev;
@@ -118,7 +151,8 @@ void pci_init()
 	}
 
 	/* TODO: Replace with some kind of gcc constructor mechanism? */
-	/* ide_init(); */
+
+	do_driver_probe();
 }
 
 void pci_register_driver(struct pci_driver *driver)
