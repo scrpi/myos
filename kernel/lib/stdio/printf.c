@@ -37,11 +37,13 @@ static int print_base(uint64_t val, size_t val_len, int base, size_t maxrem)
 			break;
 	} while (val);
 
+#if 0
 	/* Left-pad hexadecimal */
 	while (base == 16 && len != val_len * 2) {
 		*s++ = '0';
 		len++;
 	}
+#endif
 
 	if (maxrem < len)
 		return -1;
