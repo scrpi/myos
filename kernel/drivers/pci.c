@@ -67,7 +67,7 @@ static void alloc_pci_device(uint8_t bus, uint8_t slot, uint8_t func)
 	dev->base_class = pci_read_byte(bus, slot, func, PCI_CFG_CLASSCODE);
 	dev->sub_class  = pci_read_byte(bus, slot, func, PCI_CFG_SUBCLASS);
 
-	list_add(&dev->node, &pci_device_list);
+	list_add_tail(&dev->node, &pci_device_list);
 }
 
 static void probe_pci_dev(uint8_t bus, uint8_t slot)
@@ -150,7 +150,7 @@ void pci_init()
 
 	pci_scan();
 
-	list_for_each_entry_reverse(dev, &pci_device_list, node) {
+	list_for_each_entry(dev, &pci_device_list, node) {
 		printf("PCI Device [%d,%d,%d] %x:%x %d:%d\n", dev->bus, dev->slot, dev->func,
 		       dev->vendor, dev->device, dev->base_class, dev->sub_class);
 	}
