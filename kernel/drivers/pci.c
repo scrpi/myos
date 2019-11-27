@@ -47,7 +47,7 @@ static uint16_t pci_read_byte(uint8_t bus, uint8_t slot, uint8_t func, uint8_t o
 	return val;
 }
 
-static void probe_pci_function(uint8_t bus, uint8_t slot, uint8_t func)
+static void alloc_pci_device(uint8_t bus, uint8_t slot, uint8_t func)
 {
 	struct pci_device *dev;
 
@@ -81,7 +81,7 @@ static void probe_pci_dev(uint8_t bus, uint8_t slot)
 	if (vendor == 0xFFFF)
 		return; /* No device present */
 
-	probe_pci_function(bus, slot, function);
+	alloc_pci_device(bus, slot, 0);
 
 	header_type = pci_read_byte(bus, slot, 0, PCI_CFG_HEADER_TYPE);
 
@@ -92,7 +92,7 @@ static void probe_pci_dev(uint8_t bus, uint8_t slot)
 			if (vendor == 0xFFFF)
 				continue;
 
-			probe_pci_function(bus, slot, function);
+			alloc_pci_device(bus, slot, function);
 		}
 	}
 }
