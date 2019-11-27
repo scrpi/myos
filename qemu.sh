@@ -32,4 +32,5 @@ done
 
 . ./iso.sh
 
-qemu-system-i386 -m 512 -cdrom myos.iso $X $GDB -d guest_errors
+qemu-img create disk.img 500m
+qemu-system-i386 -m 512 -cdrom myos.iso -hda disk.img $X $GDB -d guest_errors

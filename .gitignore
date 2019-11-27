@@ -3,4 +3,5 @@
 /sysroot
 /isodir
 *.iso
+*.img
 .tags
